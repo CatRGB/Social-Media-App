@@ -16,36 +16,41 @@ struct ContentView: View {
         if isLoggedIn {
             //MainView()
         } else {
-            NavigationView {
-                VStack {
-                    Text("Scial Media App")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.top, 20)
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 20) {
-                        NavigationLink(destination: LoginView()) {
-                            Text("Login")
-                                .frame(maxWidth: 200)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundStyle(.white)
-                                .cornerRadius(10)
-                        }
-                        .padding()
+            VStack {
+                NavigationView {
+                    VStack {
+                        Text("Social Media App")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .padding(.top, 20)
                         
-                        NavigationLink(destination: RegisterView()) {
-                            Text("Registerierung")
-                                .frame(maxWidth: 200)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundStyle(.white)
-                                .cornerRadius(10)
+                        Spacer()
+                        
+                        VStack(spacing: 20) {
+                            NavigationLink(destination: LoginView()) {
+                                Text("Login")
+                                    .frame(maxWidth: 200)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.bottom, 100)
+                            
+                            HStack {
+                                Text("Sie haben noch keinen Account?")
+                                NavigationLink(destination: RegisterView()) {
+                                    Text("Register")
+                                        .underline()
+                                        .foregroundColor(.blue)
+                                }
+                            }
                         }
                     }
-                    .padding(.bottom, 300)
+                    .padding()
+                    .background(Color.white.opacity(0.85))
+                    .cornerRadius(15)
+                    .padding()
                 }
             }
         }

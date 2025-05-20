@@ -9,9 +9,12 @@ import SwiftUI
 import FirebaseAuth
 
 struct RegisterView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    
     var body: some View {
         VStack (spacing: 20) {
-            Text("Regestrieren")
+            Text("Register")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 20)
@@ -19,14 +22,14 @@ struct RegisterView: View {
             Spacer()
             
             VStack(spacing: 20) {
-                TextField("Email", text: .constant(""))
-                TextField("Password", text: .constant(""))
+                TextField("Email", text: $email)
+                SecureField("Password", text: $password)
             }
             .padding(.leading, 20)
             .padding(.bottom, 250)
             
             
-            Button("Regestrerieren") {
+            Button("Login") {
                 
             }
             .foregroundColor(Color.white)
@@ -37,6 +40,7 @@ struct RegisterView: View {
         }
     }
 }
+
 #Preview {
     RegisterView()
 }
