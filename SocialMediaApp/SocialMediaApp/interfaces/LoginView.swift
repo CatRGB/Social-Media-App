@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import FirebaseAuth
+import Firebase
 
 struct LoginView: View {
     @State private var email: String = ""

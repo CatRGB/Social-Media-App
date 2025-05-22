@@ -48,9 +48,6 @@ struct ContentView: View {
                         }
                     }
                     .padding()
-                    .background(Color.white.opacity(0.85))
-                    .cornerRadius(15)
-                    .padding()
                 }
             }
         }
