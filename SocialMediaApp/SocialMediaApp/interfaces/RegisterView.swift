@@ -53,6 +53,10 @@ struct RegisterView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
+                
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Social Media App"), message: Text(alertMessage), dismissButton: .default(Text("OK"), action: { }))
+                }
             }
         }
     }
@@ -60,8 +64,12 @@ struct RegisterView: View {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 errorMessage = error.localizedDescription
+            } else {
+                alertMessage = "Registrierung erfolgreich"
+                showAlert = true
+                errorMessage = ""
             }
-            print("User created!")
+            
         }
     }
 }
