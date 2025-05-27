@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
 
 @main
 struct SocialMediaAppApp: App {
@@ -16,6 +18,38 @@ struct SocialMediaAppApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(session)
+        }
+    }
+}
+
+/// Abildung der Datenban struktur
+struct Post: Identifiable, Codable {
+    @DocumentID var id: String?
+    var author: String
+    var content: String
+    var timestamp: Timestamp
+}
+
+/// Update bekommen
+class PostViewModel: ObservableObject {
+    @Published var posts = [Post]()
+    private var db = Firestore.firestore()
+    
+    init() {
+        fetchPosts()
+    }
+    
+    /// Schaut in der Datenbank Post nach hinhatlten und sortiert diese nach dem Timestemp.
+    /// Es wird sichergestellt das Daten vorhanden sind ansonsten wird abgebrochen
+    func fetchPosts() {
+        db.collection("posts").order(by: "timestamp", descending: true).addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("Keine Posts in der Datenbank gefunden")
+                return
+            }
+            self.posts = documents.compactMap { queryDocumentSnapshot in
+                try? queryDocumentSnapshot.data(as: Post.self)
+            }
         }
     }
 }

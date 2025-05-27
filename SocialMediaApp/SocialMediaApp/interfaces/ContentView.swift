@@ -14,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         if isLoggedIn {
-            //MainView()
+            PostsListView()
         } else {
             VStack {
                 NavigationView {
