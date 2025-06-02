@@ -7,13 +7,11 @@
 
 import SwiftUI
 
-struct PostsListView: View {
-    // Objekt holen wo die posts drine sind
+struct PostListView: View {
     @ObservedObject var postViewModel = PostViewModel()
-    @State var newPostContet = ""
+    @State private var newPostContent = ""
     
     var body: some View {
-        // Posts aufrufen und in einer Liste anzuzeigen
         List(postViewModel.posts) { post in
             VStack(alignment: .leading) {
                 Text(post.author).font(.headline)
@@ -22,29 +20,35 @@ struct PostsListView: View {
                     .font(.caption)
                     .foregroundColor(.gray)
             }
+            
             .padding(.vertical, 4)
+            
         }
         .navigationTitle("Beiträge")
-        
-        VStack(spacing: 20) {
-            TextField("Teile deine Gedanken mit...", text: $newPostContet)
+        HStack {
+            TextField("Deine Gedanken...", text: $newPostContent)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
             Button(action: {
-                postViewModel.addPosts(content: newPostContet)
-                newPostContet = ""
+                postViewModel.addPost(content: newPostContent)
+                newPostContent = ""
             }) {
-                Text("Veröffentlichen")
+                Text("Senden")
                     .padding(.horizontal)
                     .padding(.vertical)
                     .background(Color.green)
                     .foregroundColor(Color.white)
-                    .cornerRadius(7)
+                    .cornerRadius(9)
             }
+            .padding(.trailing)
+            
+
         }
+        
     }
 }
+
 #Preview {
-    PostsListView()
+    PostListView()
 }
