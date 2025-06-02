@@ -52,4 +52,16 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
+    func addPosts(content: String) {
+        guard let usermail = Auth.auth().currentUser?.email else { return }
+        let newPost = Post(author: usermail, content: content, timestamp: Timestamp())
+        do {
+            _ = try db.collection("posts").addDocument(from: newPost)
+        }
+        catch let error {
+            print("Fehler: \(error.localizedDescription)")
+        }
+        
+    }
 }
