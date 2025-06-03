@@ -11,6 +11,7 @@ import Firebase
 struct ContentView: View {
     
     @State private var isLoggedIn = Auth.auth().currentUser != nil
+    @State var authStateListener: AuthStateDidChangeListenerHandle?
     
     var body: some View {
         if isLoggedIn {
@@ -48,6 +49,11 @@ struct ContentView: View {
                         }
                     }
                     .padding()
+                    .onAppear {
+                        authStateListener = Auth.auth().addStateDidChangeListener { _, user in
+                            isLoggedIn = Auth.auth().currentUser != nil
+                        }
+                    }
                 }
             }
         }

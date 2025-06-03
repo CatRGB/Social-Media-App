@@ -25,6 +25,17 @@ struct PostListView: View {
             
         }
         .navigationTitle("Beiträge")
+        
+        Button(action: {
+            postViewModel.logout()
+        }) {
+            Text("Abmelden")
+                .background(Color.red)
+                .foregroundColor(Color.white)
+                .cornerRadius(9)
+                .padding()
+        }
+        
         HStack {
             TextField("Deine Gedanken...", text: $newPostContent)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -42,8 +53,6 @@ struct PostListView: View {
                     .cornerRadius(9)
             }
             .padding(.trailing)
-            
-
         }
         
     }

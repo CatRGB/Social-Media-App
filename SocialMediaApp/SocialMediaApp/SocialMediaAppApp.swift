@@ -39,7 +39,7 @@ class PostViewModel: ObservableObject{
     }
     
     /// Schaut in der Datenbank Post nach hinhatlten und sortiert diese nach dem Timestemp.
-    /// Es wird sichergestellt das Daten vorhanden sind ansonsten wird 
+    /// Es wird sichergestellt das Daten vorhanden sind ansonsten wird
     func fetchPosts(){
         db.collection("posts").order(by: "timestamp", descending: true).addSnapshotListener {
             (querySnapshot, error) in
@@ -64,4 +64,12 @@ class PostViewModel: ObservableObject{
             print("Fehler: \(error.localizedDescription)")
         }
     }
+    
+    func logout() {
+           do {
+               try Auth.auth().signOut()
+           } catch let signOutError as NSError {
+               print("Fehler: \(signOutError)")
+           }
+       }
 }
